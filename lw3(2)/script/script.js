@@ -25,7 +25,7 @@
     }
   }
 
-  function deleteFromElements(list, element) {
+  function deleteElements(list, element) {
     var elementPosition = list.indexOf(element);
     if (elementPosition > -1) {
       list.splice(elementPosition, 1);
@@ -96,10 +96,10 @@
   deleteButton.onclick = function() {
     var selectedOption = document.querySelector('.store-select option:checked');
     if (selectedOption !== null) {
-      deleteFromElements(storeElements, selectedOption.innerText);
+      deleteElements(storeElements, selectedOption.innerText);
     } else {
       selectedOption = document.querySelector('.listing-select option:checked');
-      deleteFromElements(listingElements, selectedOption.innerText);
+      deleteElements(listingElements, selectedOption.innerText);
     }
     updateUI();
   }
