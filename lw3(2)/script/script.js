@@ -32,7 +32,7 @@
     }
   }
 
-  function newAddToListingElements(element) {
+  function newElements(element) {
     var elementPosition = storeElements.indexOf(element);
     if (elementPosition > -1) {
       return -1;
@@ -45,7 +45,7 @@
     return 1;
   }
 
-  function renameElement(element, newValue) {
+  function newNameElement(element, newValue) {
     var elementPosition = storeElements.indexOf(element);
     if (elementPosition > -1) {
       storeElements[elementPosition] = newValue;
@@ -108,7 +108,7 @@
 
   newElementButton.onclick = function() {
     var newElement = prompt("Введите название нового элемента");
-    var result = newAddToListingElements(newElement);
+    var result = newElements(newElement);
     updateUI();
   }
 
@@ -120,7 +120,7 @@
       selectedOption = document.querySelector('.listing-select option:checked');
     }
     var newValue = prompt("Новое название элемента");
-    renameElement(selectedOption.innerText, newValue);
+    newNameElement(selectedOption.innerText, newValue);
     updateUI();
   }
 };
