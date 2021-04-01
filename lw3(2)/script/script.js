@@ -1,8 +1,4 @@
- 
-  
-   
-    
-     window.onload = function() {
+window.onload = function() {
 
   var listingElements = ['apple', 'orange'];
   var storeElements = [];
@@ -32,7 +28,7 @@
     }
   }
 
-  function newElements(element) {
+  function addNewElements(element) {
     var elementPosition = storeElements.indexOf(element);
     if (elementPosition > -1) {
       return -1;
@@ -45,7 +41,7 @@
     return 1;
   }
 
-  function newNameElement(element, newValue) {
+  function updateElements(element, newValue) {
     var elementPosition = storeElements.indexOf(element);
     if (elementPosition > -1) {
       storeElements[elementPosition] = newValue;
@@ -79,16 +75,24 @@
 
   addStoreButton.onclick = function() {
     var selectedOption = document.querySelector('.listing-select option:checked');
-    addToStoreElements(selectedOption.innerText);
-    updateUI();
+    if (selectedOption !== null) {
+      addToStoreElements(selectedOption.innerText);
+      updateUI();
+    } else {
+      return -1;
+    }
   }
 
   var addListingButton = document.querySelector('#add-listing');
 
   addListingButton.onclick = function() {
     var selectedOption = document.querySelector('.store-select option:checked');
-    addToListingElements(selectedOption.innerText);
-    updateUI();
+    if (selectedOption !== null) {
+      addToListingElements(selectedOption.innerText);
+      updateUI();
+    } else {
+      return -1;
+    }
   }
 
   var deleteButton = document.querySelector('#delete-element');
@@ -99,17 +103,25 @@
       deleteElements(storeElements, selectedOption.innerText);
     } else {
       selectedOption = document.querySelector('.listing-select option:checked');
-      deleteElements(listingElements, selectedOption.innerText);
+      if (selectedOption !== null) {
+        deleteElements(listingElements, selectedOption.innerText);
+        updateUI();
+      } else {
+        return -1;
+      }
     }
-    updateUI();
   }
 
   var newElementButton = document.querySelector('#new-element');
 
   newElementButton.onclick = function() {
     var newElement = prompt("Введите название нового элемента");
-    var result = newElements(newElement);
-    updateUI();
+    if (newElement !== "" && newElement !== null) {
+      var result = addNewElements(newElement);
+      updateUI();
+    } else {
+      return -1;
+    }
   }
 
   var renameButton = document.querySelector('#rename');
@@ -118,9 +130,12 @@
     var selectedOption = document.querySelector('.store-select option:checked');
     if (selectedOption === null) {
       selectedOption = document.querySelector('.listing-select option:checked');
+      if (selectedOption === null) {
+        return -1;
+      }
     }
     var newValue = prompt("Новое название элемента");
-    newNameElement(selectedOption.innerText, newValue);
+    updateElements(selectedOption.innerText, newValue);
     updateUI();
   }
 };
