@@ -1,6 +1,5 @@
-window.onload = function() {
-
-  var listingElements = ['apple', 'orange'];
+window.onload = function () {
+  var listingElements = ["apple", "orange"];
   var storeElements = [];
 
   var isInAscending = true;
@@ -21,14 +20,14 @@ window.onload = function() {
     }
   }
 
-  function deleteElements(list, element) {
+  function deleteElement(list, element) {
     var elementPosition = list.indexOf(element);
     if (elementPosition > -1) {
       list.splice(elementPosition, 1);
     }
   }
 
-  function addNewElements(element) {
+  function addNewElement(element) {
     var elementPosition = storeElements.indexOf(element);
     if (elementPosition > -1) {
       return -1;
@@ -41,7 +40,7 @@ window.onload = function() {
     return 1;
   }
 
-  function updateElements(element, newValue) {
+  function updateElement(element, newValue) {
     var elementPosition = storeElements.indexOf(element);
     if (elementPosition > -1) {
       storeElements[elementPosition] = newValue;
@@ -53,89 +52,91 @@ window.onload = function() {
   }
 
   function updateUI() {
-    var storeSelect = document.querySelector('.store-select');
-    var listingSelect = document.querySelector('.listing-select');
-    storeSelect.innerHTML = '';
-    listingSelect.innerHTML = '';
+    var storeSelect = document.querySelector(".store-select");
+    var listingSelect = document.querySelector(".listing-select");
+    storeSelect.innerHTML = "";
+    listingSelect.innerHTML = "";
 
     for (var i = 0; i < listingElements.length; i++) {
-      var newOption = document.createElement('option');
+      var newOption = document.createElement("option");
       newOption.innerText = listingElements[i];
       listingSelect.append(newOption);
     }
 
     for (var i = 0; i < storeElements.length; i++) {
-      var newOption = document.createElement('option');
+      var newOption = document.createElement("option");
       newOption.innerText = storeElements[i];
       storeSelect.append(newOption);
     }
   }
 
-  var addStoreButton = document.querySelector('#add-store-button');
+  var addStoreButton = document.querySelector("#add-store-button");
 
-  addStoreButton.onclick = function() {
-    var selectedOption = document.querySelector('.listing-select option:checked');
+  addStoreButton.onclick = function () {
+    var selectedOption = document.querySelector(
+      ".listing-select option:checked"
+    );
     if (selectedOption !== null) {
       addToStoreElements(selectedOption.innerText);
       updateUI();
     } else {
       return -1;
     }
-  }
+  };
 
-  var addListingButton = document.querySelector('#add-listing');
+  var addListingButton = document.querySelector("#add-listing");
 
-  addListingButton.onclick = function() {
-    var selectedOption = document.querySelector('.store-select option:checked');
+  addListingButton.onclick = function () {
+    var selectedOption = document.querySelector(".store-select option:checked");
     if (selectedOption !== null) {
       addToListingElements(selectedOption.innerText);
       updateUI();
     } else {
       return -1;
     }
-  }
+  };
 
-  var deleteButton = document.querySelector('#delete-element');
+  var deleteButton = document.querySelector("#delete-element");
 
-  deleteButton.onclick = function() {
-    var selectedOption = document.querySelector('.store-select option:checked');
+  deleteButton.onclick = function () {
+    var selectedOption = document.querySelector(".store-select option:checked");
     if (selectedOption !== null) {
-      deleteElements(storeElements, selectedOption.innerText);
+      deleteElement(storeElements, selectedOption.innerText);
     } else {
-      selectedOption = document.querySelector('.listing-select option:checked');
+      selectedOption = document.querySelector(".listing-select option:checked");
       if (selectedOption !== null) {
-        deleteElements(listingElements, selectedOption.innerText);
+        deleteElement(listingElements, selectedOption.innerText);
         updateUI();
       } else {
         return -1;
       }
     }
-  }
+  };
 
-  var newElementButton = document.querySelector('#new-element');
+  var newElementButton = document.querySelector("#new-element");
 
-  newElementButton.onclick = function() {
+  newElementButton.onclick = function () {
     var newElement = prompt("Введите название нового элемента");
     if (newElement !== "" && newElement !== null) {
-      var result = addNewElements(newElement);
+      var result = addNewElement(newElement);
       updateUI();
     } else {
       return -1;
     }
-  }
+  };
 
-  var renameButton = document.querySelector('#rename');
+  var renameButton = document.querySelector("#rename");
 
-  renameButton.onclick = function() {
-    var selectedOption = document.querySelector('.store-select option:checked');
+  renameButton.onclick = function () {
+    var selectedOption = document.querySelector(".store-select option:checked");
     if (selectedOption === null) {
-      selectedOption = document.querySelector('.listing-select option:checked');
+      selectedOption = document.querySelector(".listing-select option:checked");
       if (selectedOption === null) {
         return -1;
       }
     }
     var newValue = prompt("Новое название элемента");
-    updateElements(selectedOption.innerText, newValue);
+    updateElement(selectedOption.innerText, newValue);
     updateUI();
-  }
+  };
 };
